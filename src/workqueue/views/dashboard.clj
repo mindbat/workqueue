@@ -1,13 +1,14 @@
 (ns workqueue.views.dashboard
   (:require [workqueue.views.common :as common]
-            [workqueue.models.mongo :as mongo])
-  (:use [noir.core]
+            [workqueue.models.mongo :as mongo]
+            [noir.response :as resp])
+  (:use noir.core
         [hiccup.core :only [html]]
         hiccup.form-helpers))
 
 (defpage "/dashboard" []
   (common/layout
-   [:ul [:li "First Task"] [:li "second task"]]
+   (common/list-tasks (mongo/get-tasks))
    (form-to [:post "/task/add"]
             (common/task-fields)
             (submit-button "Add Task"))))
@@ -18,5 +19,5 @@
 
 (defpage [:post "/task/add"] {:as task}
   (if (mongo/save-task task)
-    (render "/dashboard")
-    (render "/error")))
+    (resp/redirect "/dashboard")
+    (resp/redirect "/error")))

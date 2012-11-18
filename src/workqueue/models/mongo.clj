@@ -12,3 +12,11 @@
     (mcore/connect! mongo-host)
     (mcore/set-db! (mcore/get-db "workqueue"))
     (mcoll/insert "tasks" task-doc)))
+
+(defn get-tasks
+  "Fetch a list of tasks from mongo"
+  []
+  (let [tasks-coll "tasks"]
+    (mcore/connect! mongo-host)
+    (mcore/set-db! (mcore/get-db "workqueue"))
+    (mcoll/find-maps tasks-coll)))

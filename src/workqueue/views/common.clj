@@ -14,7 +14,13 @@
                 content]]))
 
 (defpartial task-fields []
-  (label "task" "Task: ")
-  (text-field "task")
+  (label "description" "Task: ")
+  (text-field "description")
   (label "project" "Project: ")
   (text-field "project"))
+
+(defpartial single-task [task]
+  [:li (:description task)])
+
+(defpartial list-tasks [task-list]
+  [:ul (map single-task task-list)])
