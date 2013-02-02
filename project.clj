@@ -4,7 +4,5 @@
                            [compojure "1.1.5"]
                            [lib-noir "0.2.0"]
                            [com.novemberain/monger "1.3.4"]]
-            :plugins [[lein-ring "0.7.1"]]
-            :ring {:handler workqueue.server/handler
-                   :auto-reload? false})
+            :plugins [[lein-ring "0.7.1"]])
 
