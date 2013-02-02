@@ -2,7 +2,6 @@
             :description "A GTD approach to project management"
             :dependencies [[org.clojure/clojure "1.3.0"]
                            [compojure "1.1.5"]
-                           [lib-noir "0.3.5"]
                            [com.novemberain/monger "1.4.2"]
                            [ring "1.1.8"]
                            [cheshire "5.0.1"]]
