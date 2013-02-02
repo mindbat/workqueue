@@ -7,20 +7,24 @@
    :headers {"Content-Type" "application/json"}
    :body (generate-string data)})
 
-(defn handle-task-add
+(defn handle-add-task
   "Handle posting of task data to the server"
   [user-id text]
-  (add-task user-id text))
+  (add-task (Integer/parseInt user-id) text))
 
-(defn handle-task-delete
+(defn handle-delete-task
   "Handling post of delete to the server"
   [user-id task-id]
-  (delete-task user-id task-id))
+  (if-let [success (delete-task (Integer/parseInt user-id) (Integer/parseInt task-id))]
+    (json-response {:success success})
+    (json-response {:success false})))
 
-(defn handle-task-update
+(defn handle-update-task
   "Handle post of updated task data to the server"
   [user-id task-id text]
-  (update-task user-id task-id text))
+  (if-let [success (update-task (Integer/parseInt user-id) (Integer/parseInt task-id) text)]
+    (json-response {:success success})
+    (json-response {:success false})))
 
 (defn handle-get-task
   "Fetch a single task for display"

@@ -1,7 +1,8 @@
 (ns workqueue.models.task
   (:use monger.operators)
   (:require [monger.core :as mg]
-            [monger.collection :as mc])
+            [monger.collection :as mc]
+            [monger.result :as mr])
   (:import com.mongodb.WriteConcern [org.bson.types ObjectId]))
 
 (defn get-task-count
@@ -24,7 +25,7 @@
 (defn delete-task
   "Remove a task from the user's queue"
   [user-id task-id]
-  (mc/remove "tasks" {:task_id task-id :user_id user-id}))
+  (mr/ok? (mc/remove "tasks" {:task_id task-id :user_id user-id})))
 
 (defn get-task
   "Fetch a single task from the user's queue"
@@ -39,4 +40,4 @@
 (defn update-task
   "Update a given task"
   [user-id task-id text]
-  (mc/update "tasks" {:user_id user-id :task_id task-id} {$set {:task text}}))
+  (mr/ok? (mc/update "tasks" {:user_id user-id :task_id task-id} {$set {:task text}})))

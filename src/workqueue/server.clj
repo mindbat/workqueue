@@ -17,6 +17,9 @@
 (defroutes app-routes
   (GET ["/queue/:user/task/:id", :user #"[0-9]+" :id #"[0-9]+"] [user id] (handle-get-task user id))
   (GET ["/queue/:user", :user #"[0-9]+"] [user] (handle-get-queue user))
+  (POST "/task" [user task] (handle-add-task user task))
+  (PUT "/task" [user id task] (handle-update-task user id task))
+  (DELETE "/task" [user id] (handle-delete-task user id))
   (GET "/" [] (dashboard (get-queue 1)))
   (route/resources "/")
   (route/not-found "Not Found"))
