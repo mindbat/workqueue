@@ -1,5 +1,6 @@
 (ns workqueue.server
   (:use compojure.core
+        workqueue.models.task
         workqueue.views.common
         [hiccup.middleware :only (wrap-base-url)])
   (:require [compojure.route :as route]
@@ -13,7 +14,7 @@
 (mg/connect-via-uri! mongo-host)
 
 (defroutes app-routes
-  (GET "/" [] (dashboard))
+  (GET "/" [] (dashboard (get-queue 1)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
