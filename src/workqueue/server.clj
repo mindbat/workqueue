@@ -15,8 +15,8 @@
 (mg/connect-via-uri! mongo-host)
 
 (defroutes app-routes
-  (GET ["/queue/:user/task/:id", :user #"[0-9]+" :id #"[0-9]+"] [user id] (handle-get-task (Integer/parseInt user) (Integer/parseInt id)))
-  (GET ["/queue/:user", :user #"[0-9]+"] [user] (handle-get-queue (Integer/parseInt user)))
+  (GET ["/queue/:user/task/:id", :user #"[0-9]+" :id #"[0-9]+"] [user id] (handle-get-task user id))
+  (GET ["/queue/:user", :user #"[0-9]+"] [user] (handle-get-queue user))
   (GET "/" [] (dashboard (get-queue 1)))
   (route/resources "/")
   (route/not-found "Not Found"))

@@ -25,9 +25,9 @@
 (defn handle-get-task
   "Fetch a single task for display"
   [user-id task-id]
-  (json-response (get-task user-id task-id)))
+  (json-response (get-task (Integer/parseInt user-id) (Integer/parseInt task-id))))
 
 (defn handle-get-queue
   "Fetch a user's json queue for display"
   [user-id]
-  (json-response (get-queue user-id)))
+  (json-response (get-queue (Integer/parseInt user-id))))
