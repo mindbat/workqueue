@@ -29,12 +29,12 @@
 (defn get-task
   "Fetch a single task from the user's queue"
   [user-id task-id]
-  (mc/find-one-as-map "tasks" {:task_id task-id :user_id user-id}))
+  (dissoc (mc/find-one-as-map "tasks" {:task_id task-id :user_id user-id}) :_id))
 
 (defn get-queue
   "Fetch all the user's tasks"
   [user-id]
-  (mc/find-maps "tasks" {:user_id user-id}))
+  (map #(dissoc % :_id) (mc/find-maps "tasks" {:user_id user-id})))
 
 (defn update-task
   "Update a given task"

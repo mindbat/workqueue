@@ -6,11 +6,14 @@
   [task]
   [:article [:p (:task task)]])
 
+(defn layout
+  [title content]
+  (html5
+   [:head [:title "WorkQueue"]]
+   [:body
+    [:h1 title]
+    content]))
+
 (defn dashboard
   [tasks]
-  (html5
-   [:head [:title "Dashboard"]]
-   [:body
-    [:h1 "Dashboard"]
-    [:section {:id "tasks"}
-     (map display-task tasks)]]))
+  (layout "Dashboard" (map display-task tasks)))
