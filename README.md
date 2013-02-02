@@ -1,4 +1,4 @@
-# workqueue
+# Workqueue
 
 A GTD approach to project management.
 
