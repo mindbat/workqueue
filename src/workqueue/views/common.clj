@@ -1,5 +1,8 @@
 (ns workqueue.views.common
-  (:use [hiccup core page form]))
+  (:use
+   workqueue.models.task
+   [hiccup core page form])
+  (:require [noir.session :as session]))
 
 (defn display-task
   "Display for a single task"
@@ -15,10 +18,21 @@
     [:h1 title]
     content]))
 
+(defn task-form
+  "Form for adding a new task"
+  [username]
+  (form-to [:post "/task"]
+           (hidden-field "user" username)
+           (label "task" "Task Description")
+           (text-field "task")
+           (submit-button "Add Task")))
+
 (defn dashboard
   "Display the user dashboard"
-  [tasks]
-  (layout "Dashboard" (map display-task tasks)))
+  [username]
+  (let [task-list (map display-task (get-queue username))
+        add-task-form (task-form username)]
+    (layout "Dashboard" (conj task-list add-task-form))))
 
 (defn login-form
   "Display the login form"
