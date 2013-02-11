@@ -1,6 +1,7 @@
 (ns workqueue.server
   (:use compojure.core
-        workqueue.api
+        workqueue.api.task
+        workqueue.api.login
         workqueue.models.task
         workqueue.views.common
         [hiccup.middleware :only (wrap-base-url)])

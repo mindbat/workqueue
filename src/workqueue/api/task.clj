@@ -1,13 +1,6 @@
-(ns workqueue.api
+(ns workqueue.api.task
   (:use workqueue.models.task
-        workqueue.models.user
-        cheshire.core)
-  (:require [noir.session :as session]))
-
-(defn json-response [data & [status]]
-  {:status (or status 200)
-   :headers {"Content-Type" "application/json"}
-   :body (generate-string data)})
+        workqueue.api.common))
 
 (defn handle-add-task
   "Handle posting of task data to the server"
@@ -38,9 +31,3 @@
   [username]
   (json-response (get-queue username)))
 
-(defn handle-user-login
-  "Verify and login a user"
-  [username password]
-  (if-let [verified (user-valid? username password)]
-    (json-response (session/put! :user username))
-    (json-response {:success false})))
