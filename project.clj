@@ -5,7 +5,8 @@
                            [com.novemberain/monger "1.4.2"]
                            [ring "1.1.8"]
                            [digest "1.3.0"]
-                           [cheshire "5.0.1"]]
+                           [cheshire "5.0.1"]
+                           [lib-noir "0.3.5"]]
             :plugins [[lein-ring "0.7.1"]]
             :ring {:handler workqueue.server/app})
 

@@ -7,7 +7,8 @@
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [compojure.response :as response]
-            [monger.core :as mg]))
+            [monger.core :as mg]
+            [noir.session :as session]))
 
 (def mongo-host (get (System/getenv)
                      "MONGOLAB_URI" "mongodb://127.0.0.1/workqueue"))
@@ -20,10 +21,13 @@
   (POST "/task" [user task] (handle-add-task user task))
   (PUT "/task" [user id task] (handle-update-task user id task))
   (DELETE "/task" [user id] (handle-delete-task user id))
+  (GET "/login" [] (display-login))
+  (POST "/login" [username password] (handle-user-login username password))
   (GET "/" [] (dashboard (get-queue 1)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
      (-> (handler/site app-routes)
-         (wrap-base-url)))
+         (wrap-base-url)
+         (session/wrap-noir-session)))
