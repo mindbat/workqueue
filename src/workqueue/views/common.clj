@@ -27,13 +27,6 @@
            (text-field "task")
            (submit-button "Add Task")))
 
-(defn dashboard
-  "Display the user dashboard"
-  [username]
-  (let [task-list (map display-task (get-queue username))
-        add-task-form (task-form username)]
-    (layout "Dashboard" (conj task-list add-task-form))))
-
 (defn login-form
   "Display the login form"
   []
@@ -48,3 +41,12 @@
   "Display the login page"
   []
   (layout "Login" (login-form)))
+
+(defn dashboard
+  "Display the user dashboard"
+  [username]
+  (if (nil? username)
+    (display-login)
+    (let [task-list (map display-task (get-queue username))
+         add-task-form (task-form username)]
+     (layout "Dashboard" (conj task-list add-task-form)))))
